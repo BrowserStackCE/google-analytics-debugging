@@ -21,12 +21,7 @@ public class Main {
         proxyServer.addRequestFilter(new RequestFilter() {
             @Override
             public HttpResponse filterRequest(HttpRequest httpRequest, HttpMessageContents httpMessageContents, HttpMessageInfo httpMessageInfo) {
-                String url = httpMessageInfo.getOriginalUrl();
-                if(url.contains("https://analytics.google.com/g/collect")){
-                    String modified = url.replaceFirst("https://analytics.google.com/g/collect\\?","https://analytics.google.com/g/collect?_dbg=1&");
-                    httpRequest.setUri(modified);
-                    System.out.println("Intercepted URL:" + httpRequest.getUri());
-                }
+                httpRequest.headers().add("Content-Type","application/json");
                 return null;
             }
         });
