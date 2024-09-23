@@ -36,5 +36,14 @@ public class Main {
         local = new Local();
         local.start(localArgs);
         System.out.println("BrowserStack Local Started!");
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run(){
+                try {
+                    local.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
     }
 }
